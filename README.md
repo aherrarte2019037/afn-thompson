@@ -16,6 +16,7 @@ This laboratory focuses on implementing a solution for regular expression handli
 - **`README.md`:** This file, containing instructions and information about the repository.
 - **`astnode.py`:** A Python file that contains the class definitions for AstNode.
 - **`main.py`:** Entry file in Python.
+- **`nfa_results/`:** A directory containing the graphical representation of the NFA for each regular expression.
 
 ## Running the Program
 

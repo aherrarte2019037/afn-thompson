@@ -101,25 +101,37 @@ def simulate_nfa(nfa, string):
     current_states = set()
     next_states = set()
 
-    def add_state(state):
+    def add_state(state, visited):
+        if state in visited:
+            return
+        visited.add(state)
         current_states.add(state)
         if None in state.transitions:
             for next_state in state.transitions[None]:
-                add_state(next_state)
+                add_state(next_state, visited)
 
-    add_state(nfa.start_state)
+    visited = set()
+    add_state(nfa.start_state, visited)
 
     for char in string:
         for state in current_states:
             if char in state.transitions:
                 for next_state in state.transitions[char]:
                     next_states.add(next_state)
+        
         current_states = next_states
         next_states = set()
+        
+        visited = set()
+        for state in list(current_states):
+            add_state(state, visited)
+        
         if not current_states:
             return False
 
-    return nfa.accept_state in current_states
+    is_accepted = nfa.accept_state in current_states
+    
+    return is_accepted
 
 def read_input(file_path):
     with open(file_path, 'r') as file:
